@@ -12,19 +12,30 @@
 <body class="bg-light">
 <div class="container py-5">
     <h2>Edit Note</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label>Title</label>
-            <input type="text" name="title" value="{{ note.title }}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>Content</label>
-            <textarea name="content" class="form-control" rows="5" required>{{ note.content }}</textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        {% for error in form.content.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</form>
 </div>
 </body>
 </html>
